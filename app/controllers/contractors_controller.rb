@@ -1,5 +1,5 @@
 class ContractorsController < ApplicationController
-  before_action :set_contractor, only: %i[ show update destroy ]
+  before_action :set_contractor, only: %i[show update destroy]
 
   # GET /contractors
   def index
@@ -39,13 +39,14 @@ class ContractorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contractor
-      @contractor = Contractor.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def contractor_params
-      params.require(:contractor).permit(:name, :rate, :bio)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contractor
+    @contractor = Contractor.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def contractor_params
+    params.require(:contractor).permit(:name, :rate, :bio)
+  end
 end
