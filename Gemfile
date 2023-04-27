@@ -38,6 +38,9 @@ gem "rack-cors"
 gem "devise"
 gem "devise-jwt"
 
+# Generate jwt key
+gem 'dotenv-rails', groups: [:development, :test]
+
 gem 'rubocop', '>= 1.0', '< 2.0'
 
 group :development, :test do
