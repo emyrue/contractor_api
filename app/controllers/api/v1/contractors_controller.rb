@@ -1,4 +1,4 @@
-class ContractorsController < ApplicationController
+class Api::V1::ContractorsController < ApplicationController
   before_action :set_contractor, only: %i[show update destroy]
 
   # GET /contractors
