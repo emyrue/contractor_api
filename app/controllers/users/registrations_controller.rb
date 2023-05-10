@@ -73,6 +73,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_failed
-    render json: { message: 'Signed up failure.' }
+    render json: { message: resource.errors.full_messages }
   end
 end
