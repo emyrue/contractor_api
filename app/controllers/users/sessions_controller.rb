@@ -27,7 +27,10 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(_resource, _opts = {})
-    render json: { message: 'Logged.' }, status: :ok
+    render json: {
+      message: 'Logged.',
+      data: { user: User.find(current_user.id).serializable_hash }
+    }, status: :ok
   end
 
   def respond_to_on_destroy
