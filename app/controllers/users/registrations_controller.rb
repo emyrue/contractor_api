@@ -10,11 +10,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    build_resource(sign_up_params.merge(name: params[:user][:name], is_contractor: params[:user][:is_contractor],
-                                        role: params[:user][:role]))
-    super
-  end
+  # def create
+  #   build_resource(sign_up_params.merge(name: params[:user][:name], is_contractor: params[:user][:is_contractor],
+  #                                       role: params[:user][:role]))
+  #   super
+  # end
 
   # GET /resource/edit
   # def edit
