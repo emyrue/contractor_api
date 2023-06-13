@@ -29,7 +29,7 @@ class Users::SessionsController < Devise::SessionsController
   def respond_with(_resource, _opts = {})
     render json: {
       message: 'Logged.',
-      data: { user: User.find(current_user.id).serializable_hash }
+      data: current_user
     }, status: :ok
   end
 
