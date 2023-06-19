@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resources :reservations
       resources :jobs
       resources :contractors
-      resources :users
+      resources :users, only: [:index, :destroy]
     end
   end
 
