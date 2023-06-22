@@ -3,10 +3,16 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users
   def index
-    bearer = request.headers["Authorization"].split[1]
+    bearer = request.headers['Authorization'].split[1]
     secret_key = Rails.application.credentials.fetch(:devise_jwt_secret_key)
     decoded = JWT.decode(bearer, secret_key).first
     @user = User.find(decoded['sub'].to_i)
+    render json: @user
+  end
+
+  # PATCH /users/1
+  def update
+    @user.update(user_params)
     render json: @user
   end
 
@@ -24,6 +30,6 @@ class Api::V1::UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:name, :role)
+    params.require(:user).permit(:name, :role, :is_contractor)
   end
 end
