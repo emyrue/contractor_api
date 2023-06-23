@@ -18,7 +18,7 @@ class Api::V1::ContractorsController < ApplicationController
     @contractor = Contractor.new(contractor_params)
 
     if @contractor.save
-      render json: @contractor, status: :created, location: @contractor
+      render json: @contractor, status: :created
     else
       render json: @contractor.errors, status: :unprocessable_entity
     end
@@ -47,6 +47,6 @@ class Api::V1::ContractorsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def contractor_params
-    params.require(:contractor).permit(:name, :rate, :bio)
+    params.require(:contractor).permit(:user_id, :name, :rate, :bio)
   end
 end
