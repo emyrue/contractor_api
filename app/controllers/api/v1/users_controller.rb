@@ -6,8 +6,11 @@ class Api::V1::UsersController < ApplicationController
     bearer = request.headers['Authorization'].split[1]
     secret_key = Rails.application.credentials.fetch(:devise_jwt_secret_key)
     decoded = JWT.decode(bearer, secret_key).first
-    @user = User.find(decoded['sub'].to_i)
-    render json: @user
+    @user = User.includes(:contractor).find(decoded['sub'].to_i)
+    render json: {
+      user: @user,
+      constractor: @user.contractor
+    }
   end
 
   # PATCH /users/1
