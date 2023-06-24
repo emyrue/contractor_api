@@ -9,14 +9,18 @@ class Api::V1::UsersController < ApplicationController
     @user = User.includes(:contractor).find(decoded['sub'].to_i)
     render json: {
       user: @user,
-      constractor: @user.contractor
+      contractor: @user.contractor
     }
   end
 
   # PATCH /users/1
   def update
+    @my_user = User.includes(:contractor).find(1)
     @user.update(user_params)
-    render json: @user
+    render json: {
+      user: @user,
+      contractor: @my_user.contractor
+    }
   end
 
   # DELETE /users/1

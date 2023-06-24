@@ -27,9 +27,11 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(_resource, _opts = {})
+    @user = User.includes(:contractor).find(current_user.id)
     render json: {
       message: 'Logged.',
-      data: current_user
+      data: { user: current_user,
+      contractor: @user.contractor }
     }, status: :ok
   end
 
