@@ -27,12 +27,16 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(_resource, _opts = {})
-    @user = User.includes(:contractor).find(current_user.id)
-    render json: {
-      message: 'Logged.',
-      data: { user: current_user,
-      contractor: @user.contractor }
-    }, status: :ok
+    unless current_user
+      redirect_to Rails.application.credentials.fetch(:frontend_app_url)
+    else
+      @user = User.includes(:contractor).find(current_user.id)
+      render json: {
+        message: 'Logged.',
+        data: { user: current_user,
+        contractor: @user.contractor }
+      }, status: :ok
+    end
   end
 
   def respond_to_on_destroy
