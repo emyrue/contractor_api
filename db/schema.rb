@@ -37,15 +37,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_10_004321) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.date "date"
+    t.date "start_date"
+    t.date "end_date"
     t.string "address"
     t.text "job_description"
     t.integer "time_required"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.bigint "contractor_id", null: false
-    t.index ["contractor_id", "date"], name: "index_reservations_on_contractor_id_and_date", unique: true
     t.index ["contractor_id"], name: "index_reservations_on_contractor_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -84,6 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_10_004321) do
   add_foreign_key "likes", "reviews"
   add_foreign_key "likes", "users"
   add_foreign_key "reservations", "contractors"
+  add_foreign_key "reservations", "users"
   add_foreign_key "reviews", "contractors"
   add_foreign_key "reviews", "users"
 end
