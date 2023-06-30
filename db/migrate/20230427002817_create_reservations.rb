@@ -5,7 +5,9 @@ class CreateReservations < ActiveRecord::Migration[7.0]
       t.date :end_date
       t.string :address
       t.text :job_description
-      t.integer :time_required
+      t.boolean :user_cancelled, default: false
+      t.boolean :contractor_cancelled, default: false
+      t.boolean :approved, default: false
 
       t.timestamps
     end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pending_reservations
   scope :api, defaults: { format: :json } do
     devise_for :users, controllers: { 
       registrations: 'users/registrations',

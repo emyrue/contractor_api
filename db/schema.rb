@@ -41,7 +41,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_10_004321) do
     t.date "end_date"
     t.string "address"
     t.text "job_description"
-    t.integer "time_required"
+    t.boolean "user_cancelled", default: false
+    t.boolean "contractor_cancelled", default: false
+    t.boolean "approved", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
