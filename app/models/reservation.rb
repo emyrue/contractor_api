@@ -9,7 +9,6 @@ class Reservation < ApplicationRecord
       .where(contractor_id:)
       .where(approved: true)
       .where('(start_date, end_date) OVERLAPS (?, ?)', start_date, end_date)
-
     return unless overlapping_reservations.exists?
 
     errors.add(:reservation_period, 'overlaps with existing reservation for the same contractor')
