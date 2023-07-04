@@ -2,7 +2,7 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :contractor
   validate :no_overlap_for_same_contractor
-  validates :job_description, presence: true
+  # validates :job_description, presence: true
 
   def no_overlap_for_same_contractor
     overlapping_reservations = Reservation.where.not(id:)
