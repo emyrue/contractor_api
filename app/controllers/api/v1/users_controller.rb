@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
 
   # PATCH /users/1
   def update
-    @my_user = User.includes(:contractor).includes(:reservations).find(1)
+    @my_user = User.includes(:contractor).includes(:reservations).find(@user.id)
     @user.update(user_params)
     render json: {
       user: @user,

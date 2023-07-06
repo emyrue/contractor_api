@@ -10,7 +10,11 @@ class Api::V1::ContractorsController < ApplicationController
 
   # GET /contractors/1
   def show
-    render json: @contractor
+    @my_contractor = Contractor.includes(:reservations).find(@contractor.id)
+    render json: {
+      contractor: @contractor,
+      reservations: @my_contractor.reservations
+    }
   end
 
   # POST /contractors
