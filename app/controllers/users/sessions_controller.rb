@@ -28,11 +28,12 @@ class Users::SessionsController < Devise::SessionsController
 
   def respond_with(_resource, _opts = {})
     if current_user
-      @user = User.includes(:contractor).find(current_user.id)
+      @user = User.includes(:contractor).includes(:reservations).find(current_user.id)
       render json: {
         message: 'Logged.',
         data: { user: current_user,
-                contractor: @user.contractor }
+                contractor: @user.contractor,
+                reservations: @user.reservations }
       }, status: :ok
     else
       redirect_to Rails.application.credentials.fetch(:frontend_app_url)
