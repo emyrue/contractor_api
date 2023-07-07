@@ -18,9 +18,14 @@ class Api::V1::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
 
     if @reservation.save
-      render json: @reservation, status: :created, location: @reservation
+      render json: {
+        messages: ["Reservation created successfully."]
+      }
     else
-      render json: @reservation.errors, status: :unprocessable_entity
+      render json: {
+        messages: @reservation.errors,
+        status: :unprocessable_entity
+      }
     end
   end
 
@@ -47,6 +52,6 @@ class Api::V1::ReservationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def reservation_params
-    params.require(:reservation).permit(:date)
+    params.require(:reservation).permit(:start_date, :end_date, :job_description, :user_id, :contractor_id)
   end
 end
