@@ -7,10 +7,20 @@ class Api::V1::UsersController < ApplicationController
     secret_key = Rails.application.credentials.fetch(:devise_jwt_secret_key)
     decoded = JWT.decode(bearer, secret_key).first
     @user = User.includes(:contractor).includes(:reservations).find(decoded['sub'].to_i)
+    reservations = @user.reservations.includes(:contractor)
+    @all_reservations = []
+    reservations.each do |reservation|
+      reservation_info = {
+        reservation: reservation,
+        contractor: reservation.contractor
+      }
+      @all_reservations.push(reservation_info)
+    end
+    puts @all_reservations
     render json: {
       user: @user,
       contractor: @user.contractor,
-      reservations: @user.reservations
+      reservations: @all_reservations
     }
   end
 
