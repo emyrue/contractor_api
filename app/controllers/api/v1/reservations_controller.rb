@@ -52,6 +52,6 @@ class Api::V1::ReservationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def reservation_params
-    params.require(:reservation).permit(:start_date, :end_date, :job_description, :user_id, :contractor_id)
+    params.require(:reservation).permit(:start_date, :end_date, :job_description, :user_id, :contractor_id, :user_cancelled, :contractor_cancelled, :approved)
   end
 end

@@ -16,7 +16,6 @@ class Api::V1::UsersController < ApplicationController
       }
       @all_reservations.push(reservation_info)
     end
-    puts @all_reservations
     render json: {
       user: @user,
       contractor: @user.contractor,
