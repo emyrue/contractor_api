@@ -8,6 +8,8 @@ class Reservation < ApplicationRecord
     overlapping_reservations = Reservation.where.not(id:)
       .where(contractor_id:)
       .where(approved: true)
+      .where(user_cancelled: false)
+      .where(contractor_cancelled: false)
       .where('(start_date, end_date) OVERLAPS (?, ?)', start_date, end_date)
     return unless overlapping_reservations.exists?
 
