@@ -10,19 +10,20 @@ class Api::V1::ContractorsController < ApplicationController
 
   # GET /contractors/1
   def show
-    @my_contractor = Contractor.includes(:reservations).find(@contractor.id)
+    @my_contractor = Contractor.includes(:reservations).includes(:reviews).find(@contractor.id)
     reservations = @my_contractor.reservations.includes(:user)
     @all_reservations = []
     reservations.each do |reservation|
       reservation_info = {
-        reservation: reservation,
+        reservation:,
         user: reservation.user
       }
       @all_reservations.push(reservation_info)
     end
     render json: {
       contractor: @contractor,
-      reservations: @all_reservations
+      reservations: @all_reservations,
+      reviews: @my_contractor.reviews
     }
   end
 
