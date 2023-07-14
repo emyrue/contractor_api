@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
     @all_reservations = []
     reservations.each do |reservation|
       reservation_info = {
-        reservation:,
+        **reservation.as_json,
         contractor: reservation.contractor
       }
       @all_reservations.push(reservation_info)

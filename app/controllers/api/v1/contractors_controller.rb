@@ -3,9 +3,20 @@ class Api::V1::ContractorsController < ApplicationController
 
   # GET /contractors
   def index
-    @contractors = Contractor.all
+    @contractors = Contractor.includes(:reviews).all
 
-    render json: @contractors
+    @all_contractors = []
+
+    @contractors.each do |contractor|
+      contractor_info = {
+        **contractor.as_json,
+        rating: contractor.reviews.average(:rating)
+      }
+      @all_contractors.push(contractor_info)
+      puts contractor_info
+    end
+
+    render json: @all_contractors
   end
 
   # GET /contractors/1
@@ -15,7 +26,7 @@ class Api::V1::ContractorsController < ApplicationController
     @all_reservations = []
     reservations.each do |reservation|
       reservation_info = {
-        reservation:,
+        **reservation.as_json,
         user: reservation.user
       }
       @all_reservations.push(reservation_info)
