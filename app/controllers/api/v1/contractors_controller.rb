@@ -32,9 +32,12 @@ class Api::V1::ContractorsController < ApplicationController
       @all_reservations.push(reservation_info)
     end
     render json: {
-      contractor: @contractor,
+      contractor: {
+        **@contractor.as_json,
+        rating: @my_contractor.reviews.average(:rating)
+      },
       reservations: @all_reservations,
-      reviews: @my_contractor.reviews
+      reviews: @my_contractor.reviews,
     }
   end
 
