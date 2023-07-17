@@ -31,13 +31,22 @@ class Api::V1::ContractorsController < ApplicationController
       }
       @all_reservations.push(reservation_info)
     end
+    reviews = @my_contractor.reviews.includes(:user)
+    @all_reviews = []
+    reviews.each do |review|
+      review_info = {
+        **review.as_json,
+        user: review.user
+      }
+      @all_reviews.push(review_info)
+    end
     render json: {
       contractor: {
         **@contractor.as_json,
         rating: @my_contractor.reviews.average(:rating)
       },
       reservations: @all_reservations,
-      reviews: @my_contractor.reviews,
+      reviews: @all_reviews
     }
   end
 
