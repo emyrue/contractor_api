@@ -26,7 +26,7 @@ class Api::V1::UsersController < ApplicationController
   # PATCH /users/1
   def update
     @my_user = User.includes(:contractor).includes(:reservations).find(@user.id)
-    if user_params[:role] === Rails.application.credentials.fetch(:admin_code)
+    if user_params[:role] == Rails.application.credentials.fetch(:admin_code)
       @user.update(name: user_params[:name], role: 'admin')
     else
       @user.update(name: user_params[:name])
