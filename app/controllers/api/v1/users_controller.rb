@@ -26,7 +26,11 @@ class Api::V1::UsersController < ApplicationController
   # PATCH /users/1
   def update
     @my_user = User.includes(:contractor).includes(:reservations).find(@user.id)
-    @user.update(user_params)
+    if user_params[:role] === Rails.application.credentials.fetch(:admin_code)
+      @user.update(name: user_params[:name], role: 'admin')
+    else
+      @user.update(name: user_params[:name])
+    end
     render json: {
       user: @user,
       contractor: @my_user.contractor,
@@ -48,6 +52,6 @@ class Api::V1::UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:name, :role, :is_contractor)
+    params.require(:user).permit(:name, :role)
   end
 end
