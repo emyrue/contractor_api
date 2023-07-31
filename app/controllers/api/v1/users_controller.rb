@@ -3,24 +3,20 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users
   def index
-    bearer = request.headers['Authorization'].split[1]
-    secret_key = Rails.application.credentials.fetch(:devise_jwt_secret_key)
-    decoded = JWT.decode(bearer, secret_key).first
-    @user = User.includes(:contractor).includes(:reservations).find(decoded['sub'].to_i)
-    reservations = @user.reservations.includes(:contractor)
-    @all_reservations = []
-    reservations.each do |reservation|
-      reservation_info = {
-        **reservation.as_json,
-        contractor: reservation.contractor
+    @users = User.includes(:contractor).all
+
+    @all_users = []
+
+    @users.each do |user|
+      contractor = user.contractor.includes(:reviews)
+      user_info = {
+        **user.as_json,
+        contractor: contractor
       }
-      @all_reservations.push(reservation_info)
+      @all_users.push(user_info)
     end
-    render json: {
-      user: @user,
-      contractor: @user.contractor,
-      reservations: @all_reservations
-    }
+
+    render json: @all_users
   end
 
   # GET /users/1

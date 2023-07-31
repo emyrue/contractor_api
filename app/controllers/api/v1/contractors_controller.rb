@@ -13,7 +13,6 @@ class Api::V1::ContractorsController < ApplicationController
         rating: contractor.reviews.average(:rating)
       }
       @all_contractors.push(contractor_info)
-      puts contractor_info
     end
 
     render json: @all_contractors
