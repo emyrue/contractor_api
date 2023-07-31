@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApplicationController
     @all_users = []
 
     @users.each do |user|
-      contractor = user.contractor.includes(:reviews)
+      contractor = user.contractor
       user_info = {
         **user.as_json,
         contractor: contractor
