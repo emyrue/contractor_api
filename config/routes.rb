@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       resources :reservations
       resources :jobs
       resources :contractors
-      resources :users, only: [:index, :destroy, :update]
+      resources :users, only: [:index, :destroy, :update, :show]
     end
   end
 
