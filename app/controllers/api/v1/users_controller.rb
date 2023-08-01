@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
       contractor = user.contractor
       user_info = {
         **user.as_json,
-        contractor: contractor
+        contractor: contractor ? contractor : {}
       }
       @all_users.push(user_info)
     end
@@ -36,7 +36,7 @@ class Api::V1::UsersController < ApplicationController
     end
     render json: {
       user: @user,
-      contractor: @user.contractor,
+      contractor: @user.contractor ? @user.contractor : {},
       reservations: @all_reservations
     }
   end
@@ -51,8 +51,8 @@ class Api::V1::UsersController < ApplicationController
     end
     render json: {
       user: @user,
-      contractor: @my_user.contractor,
-      reservations: @my_user.reservations
+      contractor: @my_user.contractor ? @my_user.contractor : {},
+      reservations: @my_user.reservations ? @my_user.reservations : []
     }
   end
 
