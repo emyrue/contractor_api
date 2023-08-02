@@ -1,16 +1,12 @@
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [your_project_name] <a name="about-project"></a>
+# 📖 Contractor Connect API
 
-> Describe your project in 1 or 2 sentences.
+This API is an ongoing project. It serves as the back-end for a full-stack project that allows users to create accounts and make reservations with contractors. Here is the <a href="https://github.com/emyrue/contractor-front-end">link</a> to the front-end repository.
 
-**[your_project__name]** is a...
+## 🛠 Built With
 
-## 🛠 Built With <a name="built-with"></a>
-
-### Tech Stack <a name="tech-stack"></a>
-
-> Describe the tech stack and include only the relevant sections that apply to your project.
+### Tech Stack
 
 <details>
   <summary>Client</summary>
@@ -22,7 +18,7 @@
 <details>
   <summary>Server</summary>
   <ul>
-    <li><a href="https://expressjs.com/">Express.js</a></li>
+    <li><a href="https://rubyonrails.org/">Ruby on Rails</a></li>
   </ul>
 </details>
 
@@ -36,8 +32,6 @@
 <!-- Features -->
 
 ### Key Features <a name="key-features"></a>
-
-> Describe between 1-3 key features of the application.
 
 - **[key_feature_1]**
 - **[key_feature_2]**
