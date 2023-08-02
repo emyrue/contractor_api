@@ -24,15 +24,19 @@ This API is an ongoing project. It serves as the back-end for a full-stack proje
 
 <!-- Features -->
 
-### Key Features <a name="key-features"></a>
+### Key Features
 
 - Account creation/modification using Devise gem
+- JWT allows user to remain signed in for two weeks
 - User may register as a contractor
-- Make and edit reservations with contractors
+- User may become an admin by entering a secret code
+- Users may make and edit reservations with contractors
+- Users can leave reviews on contractors
+- Users may like or dislike reviews on contractors
 
 <!-- GETTING STARTED -->
 
-## 💻 Getting Started <a name="getting-started"></a>
+## 💻 Getting Started
 
 To get a local copy up and running, follow these steps.
 
@@ -46,9 +50,21 @@ In order to run this project you need:
 
 ### Setup
 
-Clone this repository to your desired folder:
+Clone this repository to your desired folder by running the following command:
 
 - git clone git@github.com:emyrue/contractor_api.git
+
+You will need to create your own encrypted credentials file and add these values:
+
+- devise_jwt_secret_key
+- secret_key_base
+- sendmail_password
+- sendmail_username
+- frontend_app_url
+- admin_code
+
+You will also need to create your own git-ignored master.key file.
+The sendmail_password and sendmail_username will have to be set up in gmail.
 
 ### Install
 
@@ -71,9 +87,18 @@ Tests are not yet in place. Check back for updates.
 
 <!-- AUTHORS -->
 
-## 👥 Authors <a name="authors"></a>
+## 👥 Authors
 
 👤 **Emily Robertson**
 
 - GitHub: [@emyrue](https://github.com/emyrue)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/emilyruthrobertson/)
+
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features
+
+- Mailer sends confirmation emails
+- Reset password
+- Mailer sends notification emails regarding reservation approvals, updates, and rejections
+- Admin privileges, such as viewing and managing others' account information
