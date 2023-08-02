@@ -26,9 +26,9 @@ This API is an ongoing project. It serves as the back-end for a full-stack proje
 
 ### Key Features <a name="key-features"></a>
 
-- **[Account creation/modification using Devise gem]**
-- **[User may register as a contractor]**
-- **[Make and edit reservations with contractors]**
+- Account creation/modification using Devise gem
+- User may register as a contractor
+- Make and edit reservations with contractors
 
 <!-- GETTING STARTED -->
 
