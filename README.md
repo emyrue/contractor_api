@@ -102,3 +102,9 @@ Tests are not yet in place. Check back for updates.
 - Reset password
 - Mailer sends notification emails regarding reservation approvals, updates, and rejections
 - Admin privileges, such as viewing and managing others' account information
+
+<!-- LICENSE -->
+
+## 📝 License
+
+This project is [MIT](./MIT.md) licensed.
