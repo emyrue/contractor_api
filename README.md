@@ -9,13 +9,6 @@ This API is an ongoing project. It serves as the back-end for a full-stack proje
 ### Tech Stack
 
 <details>
-  <summary>Client</summary>
-  <ul>
-    <li><a href="https://reactjs.org/">React.js</a></li>
-  </ul>
-</details>
-
-<details>
   <summary>Server</summary>
   <ul>
     <li><a href="https://rubyonrails.org/">Ruby on Rails</a></li>
@@ -33,9 +26,10 @@ This API is an ongoing project. It serves as the back-end for a full-stack proje
 
 ### Key Features <a name="key-features"></a>
 
-- **[key_feature_1]**
-- **[key_feature_2]**
-- **[key_feature_3]**
+- **[Account creation/modification using Devise gem]**
+- **[User may register as a contractor]**
+- **[Make and edit reservations with contractors]**
+
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
