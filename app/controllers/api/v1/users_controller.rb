@@ -8,10 +8,16 @@ class Api::V1::UsersController < ApplicationController
     @all_users = []
 
     @users.each do |user|
-      contractor = user.contractor
+      if user.contractor
+        contractor = Contractor.includes(:reviews).find_by(user_id: user.id)
+      end
       user_info = {
         **user.as_json,
-        contractor: contractor ? contractor : {}
+        contractor: contractor ? {
+          **contractor.as_json,
+          rating: contractor.reviews.average(:rating) ? contractor.reviews.average(:rating) : 0,
+          number_of_reviews: contractor.reviews.length
+        } : {}
       }
       @all_users.push(user_info)
     end
@@ -24,8 +30,11 @@ class Api::V1::UsersController < ApplicationController
     bearer = request.headers['Authorization'].split[1]
     secret_key = Rails.application.credentials.fetch(:devise_jwt_secret_key)
     decoded = JWT.decode(bearer, secret_key).first
-    @user = User.includes(:contractor).includes(:reservations).find(decoded['sub'].to_i)
+    @user = User.includes(:contractor, :reservations).find(decoded['sub'].to_i)
     reservations = @user.reservations.includes(:contractor)
+    if @user.contractor
+      @contractor = Contractor.includes(:reviews).find_by(user_id: @user.id)
+    end
     @all_reservations = []
     reservations.each do |reservation|
       reservation_info = {
@@ -36,7 +45,11 @@ class Api::V1::UsersController < ApplicationController
     end
     render json: {
       user: @user,
-      contractor: @user.contractor ? @user.contractor : {},
+      contractor: @contractor ? {
+        **@contractor.as_json,
+        rating: @contractor.reviews.average(:rating) ? @contractor.reviews.average(:rating) : 0,
+        number_of_reviews: @contractor.reviews.length
+      } : {},
       reservations: @all_reservations
     }
   end
@@ -49,9 +62,16 @@ class Api::V1::UsersController < ApplicationController
     else
       @user.update(name: user_params[:name])
     end
+    if @my_user.contractor
+      @contractor = Contractor.includes(:reviews).find_by(user_id: @my_user.id)
+    end
     render json: {
       user: @user,
-      contractor: @my_user.contractor ? @my_user.contractor : {},
+      contractor: @contractor ? {
+        **@contractor.as_json,
+        rating: @contractor.reviews ? @contractor.reviews.average(:rating) : 0,
+        number_of_reviews: @contractor.reviews ? @contractor.reviews.length : 0
+      } : {},
       reservations: @my_user.reservations ? @my_user.reservations : []
     }
   end
