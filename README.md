@@ -34,6 +34,14 @@ This API is an ongoing project. It serves as the back-end for a full-stack proje
 - Users can leave reviews on contractors
 - Users may like or dislike reviews on contractors
 
+<!-- CONTRIBUTING -->
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
+
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started
