@@ -34,14 +34,6 @@ This API is an ongoing project. It serves as the back-end for a full-stack proje
 - Users can leave reviews on contractors
 - Users may like or dislike reviews on contractors
 
-<!-- CONTRIBUTING -->
-
-## 🤝 Contributing <a name="contributing"></a>
-
-Contributions, issues, and feature requests are welcome!
-
-Feel free to check the [issues page](../../issues/).
-
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started
@@ -110,6 +102,14 @@ Tests are not yet in place. Check back for updates.
 - Reset password
 - Mailer sends notification emails regarding reservation approvals, updates, and rejections
 - Admin privileges, such as viewing and managing others' account information
+
+<!-- CONTRIBUTING -->
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
 
 <!-- LICENSE -->
 
