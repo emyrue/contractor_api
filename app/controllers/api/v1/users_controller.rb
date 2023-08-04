@@ -9,7 +9,7 @@ class Api::V1::UsersController < ApplicationController
 
     @users.each do |user|
       if user.contractor
-        contractor = Contractor.includes(:reviews).find_by(user_id: user.id)
+        contractor = Contractor.includes(:reviews).find(user.contractor.id)
       end
       user_info = {
         **user.as_json,
