@@ -3,23 +3,31 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users
   def index
+    bearer = request.headers['Authorization'].split[1]
+    secret_key = Rails.application.credentials.fetch(:devise_jwt_secret_key)
+    decoded = JWT.decode(bearer, secret_key).first
+    @user = User.find(decoded['sub'].to_i)
     @users = User.includes(:contractor).all
 
     @all_users = []
 
-    @users.each do |user|
-      if user.contractor
-        contractor = Contractor.includes(:reviews).find(user.contractor.id)
+    if @user.role == 'admin'
+      @users.each do |user|
+        contractor = Contractor.includes(:reviews).find(user.contractor.id) if user.contractor
+        user_info = {
+          **user.as_json,
+          contractor: if contractor
+                        {
+                          **contractor.as_json,
+                          rating: contractor.reviews.average(:rating) || 0,
+                          number_of_reviews: contractor.reviews.length
+                        }
+                      else
+                        {}
+                      end
+        }
+        @all_users.push(user_info)
       end
-      user_info = {
-        **user.as_json,
-        contractor: contractor ? {
-          **contractor.as_json,
-          rating: contractor.reviews.average(:rating) ? contractor.reviews.average(:rating) : 0,
-          number_of_reviews: contractor.reviews.length
-        } : {}
-      }
-      @all_users.push(user_info)
     end
 
     render json: @all_users
@@ -32,9 +40,7 @@ class Api::V1::UsersController < ApplicationController
     decoded = JWT.decode(bearer, secret_key).first
     @user = User.includes(:contractor, :reservations).find(decoded['sub'].to_i)
     reservations = @user.reservations.includes(:contractor)
-    if @user.contractor
-      @contractor = Contractor.includes(:reviews).find_by(user_id: @user.id)
-    end
+    @contractor = Contractor.includes(:reviews).find_by(user_id: @user.id) if @user.contractor
     @all_reservations = []
     reservations.each do |reservation|
       reservation_info = {
@@ -45,11 +51,15 @@ class Api::V1::UsersController < ApplicationController
     end
     render json: {
       user: @user,
-      contractor: @contractor ? {
-        **@contractor.as_json,
-        rating: @contractor.reviews.average(:rating) ? @contractor.reviews.average(:rating) : 0,
-        number_of_reviews: @contractor.reviews.length
-      } : {},
+      contractor: if @contractor
+                    {
+                      **@contractor.as_json,
+                      rating: @contractor.reviews.average(:rating) || 0,
+                      number_of_reviews: @contractor.reviews.length
+                    }
+                  else
+                    {}
+                  end,
       reservations: @all_reservations
     }
   end
@@ -62,22 +72,30 @@ class Api::V1::UsersController < ApplicationController
     else
       @user.update(name: user_params[:name])
     end
-    if @my_user.contractor
-      @contractor = Contractor.includes(:reviews).find_by(user_id: @my_user.id)
-    end
+    @contractor = Contractor.includes(:reviews).find_by(user_id: @my_user.id) if @my_user.contractor
     render json: {
       user: @user,
-      contractor: @contractor ? {
-        **@contractor.as_json,
-        rating: @contractor.reviews ? @contractor.reviews.average(:rating) : 0,
-        number_of_reviews: @contractor.reviews ? @contractor.reviews.length : 0
-      } : {},
-      reservations: @my_user.reservations ? @my_user.reservations : []
+      contractor: if @contractor
+                    {
+                      **@contractor.as_json,
+                      rating: @contractor.reviews ? @contractor.reviews.average(:rating) : 0,
+                      number_of_reviews: @contractor.reviews ? @contractor.reviews.length : 0
+                    }
+                  else
+                    {}
+                  end,
+      reservations: @my_user.reservations || []
     }
   end
 
   # DELETE /users/1
   def destroy
+    bearer = request.headers['Authorization'].split[1]
+    secret_key = Rails.application.credentials.fetch(:devise_jwt_secret_key)
+    decoded = JWT.decode(bearer, secret_key).first
+    @current_user = User.includes(:contractor).find(decoded['sub'].to_i)
+    return unless (@user.id == @current_user.id) || (@current_user.role == 'admin')
+
     @user.destroy
   end
 

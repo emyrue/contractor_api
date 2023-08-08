@@ -76,9 +76,9 @@ class Api::V1::ContractorsController < ApplicationController
     secret_key = Rails.application.credentials.fetch(:devise_jwt_secret_key)
     decoded = JWT.decode(bearer, secret_key).first
     @user = User.includes(:contractor).find(decoded['sub'].to_i)
-    if (@user.contractor.id == @contractor.id) || (@user.role == "admin")
-      @contractor.destroy
-    end
+    return unless (@user.contractor.id == @contractor.id) || (@user.role == 'admin')
+
+    @contractor.destroy
   end
 
   private
