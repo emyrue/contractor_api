@@ -13,8 +13,4 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :likes, dependent: :destroy
   validates :name, uniqueness: true, presence: true
-
-  # def generate_jwt
-  #   JWT.encode({ id:, exp: 15.days.from_now.to_i }, Rails.application.credentials.secret_key_base)
-  # end
 end
