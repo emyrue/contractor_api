@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :jwt_authenticatable, :recoverable,
          :rememberable, :validatable,
-         #  :confirmable,
+         :confirmable,
          jwt_revocation_strategy: self
   has_one :contractor, dependent: :destroy
   has_many :reservations, dependent: :destroy
