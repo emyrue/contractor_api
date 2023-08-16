@@ -36,7 +36,7 @@ class Users::SessionsController < Devise::SessionsController
                 reservations: @user.reservations }
       }, status: :ok
     else
-      redirect_to Rails.application.credentials.fetch(:frontend_app_url)
+      redirect_to "#{Rails.application.credentials.fetch(:frontend_app_url)}/login"
     end
   end
 
