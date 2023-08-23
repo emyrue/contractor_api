@@ -57,7 +57,6 @@ Clone this repository to your desired folder by running the following command:
 You will need to create your own encrypted credentials file and add these values:
 
 - devise_jwt_secret_key
-- secret_key_base
 - sendmail_password
 - sendmail_username
 - frontend_app_url

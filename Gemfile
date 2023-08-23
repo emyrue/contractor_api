@@ -38,6 +38,10 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'rack-cors'
 
+gem 'shrine'
+gem 'shrine-cloudinary', "~> 1.1"
+gem 'cloudinary'
+
 # Generate jwt key
 gem 'dotenv-rails', groups: %i[development test]
 
