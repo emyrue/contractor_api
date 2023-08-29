@@ -12,7 +12,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     build_resource(sign_up_params.merge(name: params[:user][:name],
-                                        role: params[:user][:role]))
+                                        role: params[:user][:role],
+                                        picture_link: params[:user][:picture_link]))
     super
   end
 
