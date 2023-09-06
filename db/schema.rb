@@ -67,6 +67,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_10_004321) do
     t.string "name"
     t.string "role", default: "user"
     t.string "picture_link"
+    t.string "public_id"
+    t.string "signature"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
