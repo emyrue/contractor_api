@@ -10,7 +10,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     yield resource if block_given?
 
     if successfully_sent?(resource)
-      render json: {location: after_resending_confirmation_instructions_path_for(resource_name)}
+      render json: { location: after_resending_confirmation_instructions_path_for(resource_name) }
     else
       render json: resource.as_json
     end

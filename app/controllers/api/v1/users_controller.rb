@@ -67,11 +67,7 @@ class Api::V1::UsersController < ApplicationController
   # PATCH /users/1
   def update
     @my_user = User.includes(:contractor).includes(:reservations).find(@user.id)
-    if user_params[:role] == Rails.application.credentials.fetch(:admin_code)
-      @user.update(name: user_params[:name], role: 'admin')
-    else
-      @user.update(name: user_params[:name])
-    end
+    update_user(@user, user_params)
     @contractor = Contractor.includes(:reviews).find_by(user_id: @my_user.id) if @my_user.contractor
     render json: {
       user: @user,
@@ -104,6 +100,14 @@ class Api::V1::UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def update_user(user, params)
+    if params[:role] == Rails.application.credentials.fetch(:admin_code)
+      user.update(name: params[:name], role: 'admin')
+    else
+      user.update(name: params[:name])
+    end
   end
 
   # Only allow a list of trusted parameters through.
