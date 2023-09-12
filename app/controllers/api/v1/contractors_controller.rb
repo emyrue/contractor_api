@@ -4,12 +4,13 @@ class Api::V1::ContractorsController < ApplicationController
   # GET /contractors
   def index
     @contractors = Contractor.includes(:reviews).all
-
     @all_contractors = []
 
     @contractors.each do |contractor|
+      @user = User.find(contractor.user_id)
       contractor_info = {
         **contractor.as_json,
+        user: @user,
         rating: contractor.reviews.average(:rating)
       }
       @all_contractors.push(contractor_info)
@@ -90,6 +91,6 @@ class Api::V1::ContractorsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def contractor_params
-    params.require(:contractor).permit(:user_id, :name, :rate, :job_title, :bio)
+    params.require(:contractor).permit(:user_id, :rate, :job_title, :bio)
   end
 end

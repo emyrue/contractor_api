@@ -54,6 +54,7 @@ class Api::V1::UsersController < ApplicationController
       contractor: if @contractor
                     {
                       **@contractor.as_json,
+                      user: User.find(@contractor.user_id),
                       rating: @contractor.reviews.average(:rating) || 0,
                       number_of_reviews: @contractor.reviews.length
                     }
@@ -74,6 +75,7 @@ class Api::V1::UsersController < ApplicationController
       contractor: if @contractor
                     {
                       **@contractor.as_json,
+                      user: User.find(@contractor.user_id),
                       rating: @contractor.reviews ? @contractor.reviews.average(:rating) : 0,
                       number_of_reviews: @contractor.reviews ? @contractor.reviews.length : 0
                     }

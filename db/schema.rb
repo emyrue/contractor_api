@@ -15,7 +15,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_10_004321) do
   enable_extension "plpgsql"
 
   create_table "contractors", force: :cascade do |t|
-    t.string "name"
     t.string "job_title"
     t.integer "rate"
     t.text "bio"
