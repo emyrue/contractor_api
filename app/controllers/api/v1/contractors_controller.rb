@@ -44,6 +44,7 @@ class Api::V1::ContractorsController < ApplicationController
     render json: {
       contractor: {
         **@contractor.as_json,
+        user: User.find(@contractor.user_id),
         rating: @my_contractor.reviews.average(:rating)
       },
       reservations: @all_reservations,
