@@ -4,8 +4,6 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :role, default: "user"
       t.string :picture_link
-      t.string :public_id
-      t.string :signature
 
       t.timestamps
     end

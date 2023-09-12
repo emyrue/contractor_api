@@ -104,14 +104,14 @@ class Api::V1::UsersController < ApplicationController
 
   def update_user(user, params)
     if params[:role] == Rails.application.credentials.fetch(:admin_code)
-      user.update(name: params[:name], role: 'admin')
+      user.update(name: params[:name], picture_link: params[:picture_link], role: 'admin')
     else
-      user.update(name: params[:name])
+      user.update(name: params[:name], picture_link: params[:picture_link])
     end
   end
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:name, :role, :picture_link, :signature, :public_id)
+    params.require(:user).permit(:name, :role, :picture_link)
   end
 end
