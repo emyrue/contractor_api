@@ -33,6 +33,8 @@ This API is an ongoing project. It serves as the back-end for a full-stack proje
 - Users may make and edit reservations with contractors
 - Users can leave reviews on contractors
 - Users may like or dislike reviews on contractors
+- App sends confirmation emails
+- User may reset their password
 
 <!-- GETTING STARTED -->
 
@@ -97,9 +99,6 @@ Tests are not yet in place. Check back for updates.
 
 ## 🔭 Future Features
 
-- Mailer sends confirmation emails
-- Reset password
-- Mailer sends notification emails regarding reservation approvals, updates, and rejections
 - Admin privileges, such as viewing and managing others' account information
 
 <!-- CONTRIBUTING -->
