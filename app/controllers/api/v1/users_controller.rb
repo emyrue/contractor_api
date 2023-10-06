@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
           contractor: if contractor
                         {
                           **contractor.as_json,
-                          rating: contractor.reviews.average(:rating) || 0,
+                          rating: contractor.reviews.average(:rating).to_i || 0,
                           number_of_reviews: contractor.reviews.length
                         }
                       else
@@ -45,7 +45,10 @@ class Api::V1::UsersController < ApplicationController
     reservations.each do |reservation|
       reservation_info = {
         **reservation.as_json,
-        contractor: reservation.contractor
+        contractor: {
+          **reservation.contractor.as_json,
+          name: User.find(reservation.contractor.user_id).name
+        }
       }
       @all_reservations.push(reservation_info)
     end
